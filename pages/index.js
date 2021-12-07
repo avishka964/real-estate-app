@@ -3,13 +3,8 @@ import Image from 'next/image';
 import { Grid, Box, Typography, Button, Paper, ButtonBase} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import styles from '../styles/Home.module.css';
-
-const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%', 
-});
+import {base_url, api} from '../utils/api';
+import Property from '../components/Property';
 
 const Banner = ({imageUrl , purpose, title, desc, linkName, buttonText}) => (
   <Paper sx={{ p: 2, margin: 'auto',  maxWidth: 800, flexGrow: 1 }}>
@@ -43,7 +38,8 @@ const Banner = ({imageUrl , purpose, title, desc, linkName, buttonText}) => (
 </Paper>
 )
 
-export default function Home() {
+export default function Home({propertiesForSale, propertiesForRent }) {
+  
   return (
     <div className={styles.container}>
     <Banner  
@@ -54,9 +50,11 @@ export default function Home() {
       linkName='/search?purpose=for-rent'
       imageUrl='https://images.pexels.com/photos/358636/pexels-photo-358636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
      />
-     <Grid>
- 
-     </Grid>
+     <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+       {propertiesForRent.map((property) => <Property  property={property} key={property.id} />)}
+      </Grid>
+     </Box>
     <Banner  
       purpose='BUY A HOME'
       title='Find, Buy & Own your Dream Home'
@@ -65,9 +63,25 @@ export default function Home() {
       linkName='/search?purpose=for-sale'
       imageUrl='https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
      />
-    <Grid>
-
-    </Grid>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+       {propertiesForSale.map((property) => <Property  property={property} key={property.id} />)}
+      </Grid>
+     </Box>
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const forSaleProp = await api(`${base_url}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`)
+  const forRentProp = await api(`${base_url}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`)
+
+  return {
+    props:{
+      propertiesForSale: forSaleProp?.hits,
+      propertiesForRent: forRentProp?.hits
+    }
+  }
+
+
 }
