@@ -1,14 +1,11 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import {
-  Box,
   Grid,
   Typography,
   Avatar,
   Card,
   CardHeader,
-  IconButton,
   CardMedia,
   CardContent,
   Button,
@@ -17,7 +14,9 @@ import {
 } from '@mui/material';
 import { KingBed, Shower, SquareFoot, Verified } from '@mui/icons-material';
 import millify from 'millify';
-import DefaultImage from '../assets/default-image.jpeg';
+
+
+const DefaultImage = 'https://images.pexels.com/photos/358636/pexels-photo-358636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
 
 function Property({
   property: {
@@ -30,19 +29,22 @@ function Property({
     area,
     agency,
     isVerified,
-    externalId,
+    externalID,
     product,
   },
 }) {
+  
   const heading = (
     <Fragment>
-      {isVerified && <Verified sx={{ fontSize: 13.5 }} />} AED {millify(price)}
-      {rentFrequency && `/${rentFrequency}`}
+      AED {millify(price)}
+      {rentFrequency && `/${rentFrequency}`} {isVerified && <Verified sx={{ fontSize: 13.5, color:'green' }} />} 
     </Fragment>
   );
 
+  
+
   return (
-    <Grid item md={4} xs={12}>
+    <Grid item md={4} xs={12} sm={6}>
       <Card>
         <CardHeader
           avatar={<Avatar src={agency?.logo?.url} />}
@@ -65,7 +67,7 @@ function Property({
             {title.length > 50 ? `${title.substring(0, 50)}...` : title}
           </Typography>
           <Button variant="contained" color="success">
-            <Link href={`/property/${externalId}`} passHref>
+            <Link href={`/property/${externalID}`} passHref>
               view more
             </Link>
           </Button>

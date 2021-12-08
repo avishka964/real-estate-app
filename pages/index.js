@@ -27,7 +27,7 @@ const Banner = ({ imageUrl, purpose, title, desc, linkName, buttonText }) => (
             <Typography gutterBottom variant='subtitle1' component='div'>
               {purpose}
             </Typography>
-            <Typography  variant="h5" gutterBottom sx={{ fontWeight: 'bold'}}>
+            <Typography  variant="h5" gutterBottom fontWeight='bold'>
               {title}
             </Typography>
             <Typography variant='body2' color='text.secondary'>
