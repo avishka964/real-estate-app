@@ -15,7 +15,7 @@ function Search({ properties }) {
   return (
     <Fragment>
       <Head>
-        <title>Real State Solution</title>
+        <title>Real Estate Solution</title>
         <meta
           name='description'
           content='Most popular real estates in the world'
