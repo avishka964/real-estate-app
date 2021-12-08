@@ -19,7 +19,7 @@ import { KingBed, Shower, SquareFoot, Verified } from '@mui/icons-material';
 import millify from 'millify';
 import DefaultImage from '../assets/default-image.jpeg';
 
-const Property = ({
+function Property({
   property: {
     coverPhoto,
     price,
@@ -33,7 +33,7 @@ const Property = ({
     externalId,
     product,
   },
-}) => {
+}) {
   const heading = (
     <Fragment>
       {isVerified && <Verified sx={{ fontSize: 13.5 }} />} AED {millify(price)}
@@ -42,8 +42,8 @@ const Property = ({
   );
 
   return (
-    <Grid item md={4} sx={12}>
-      <Card sx={{ maxWidth: 345 }}>
+    <Grid item md={4} xs={12}>
+      <Card>
         <CardHeader
           avatar={<Avatar src={agency?.logo?.url} />}
           title={heading}
@@ -62,7 +62,7 @@ const Property = ({
             <Chip icon={<SquareFoot />} label={millify(area) + 'sqft'} variant='outlined'/>
           </Stack>
           <Typography variant='body2' color='text.secondary' sx={{marginTop: 2, marginBottom:1}}>
-            {title.length > 30 ? `${title.substring(0, 30)}...` : title}
+            {title.length > 50 ? `${title.substring(0, 50)}...` : title}
           </Typography>
           <Button variant="contained" color="success">
             <Link href={`/property/${externalId}`} passHref>
